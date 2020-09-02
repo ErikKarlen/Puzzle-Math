@@ -1,3 +1,7 @@
 [gd_scene format=2]
 
 [node name="Game" type="Node2D"]
+
+[node name="Pancake" type="Node2D" parent="."]
+
+[node name="Order" type="Node2D" parent="."]
