@@ -1,2 +1,2 @@
-# Pancake-Math
- Math game with pancakes
+# Puzzle-Math
+ Puzzle game with grid of numbers and operators.
