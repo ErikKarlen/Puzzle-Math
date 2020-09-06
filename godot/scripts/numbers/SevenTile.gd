@@ -1,4 +1,1 @@
-extends Tile
-
-func _ready():
-    tileType = TileType.SEVEN
+extends "res://scripts/Tile.gd"
