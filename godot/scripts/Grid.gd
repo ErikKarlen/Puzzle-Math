@@ -40,6 +40,7 @@ const SubtractionTile = preload("res://scenes/operators/SubtractionTile.tscn")
 const MultiplicationTile = preload("res://scenes/operators/MultiplicationTile.tscn")
 const DivisionTile = preload("res://scenes/operators/DivisionTile.tscn")
 
+export(Vector2) var positionOffset
 export(Array, Array, TileType) var puzzleGrid = []
 
 var grid = []
@@ -73,7 +74,7 @@ func create_grid():
 	)
 	print(max_row_length)
 	print(max_column_length)
-	position = Vector2(
+	position = positionOffset + Vector2(
 		projectResolution[0] / 2 - max_row_length / 2,
 		projectResolution[1] / 2 - max_column_length / 2
 	)
