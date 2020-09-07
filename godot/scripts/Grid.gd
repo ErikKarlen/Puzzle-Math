@@ -72,8 +72,6 @@ func create_grid():
 		ProjectSettings.get_setting("display/window/size/width"),
 		ProjectSettings.get_setting("display/window/size/height")
 	)
-	print(max_row_length)
-	print(max_column_length)
 	position = positionOffset + Vector2(
 		projectResolution[0] / 2 - max_row_length / 2,
 		projectResolution[1] / 2 - max_column_length / 2

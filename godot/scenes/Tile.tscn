@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://art/tile.png" type="Texture" id=1]
+[ext_resource path="res://scripts/TileSprite.gd" type="Script" id=2]
 
 [sub_resource type="GDScript" id=1]
 script/source = "extends Node2D
@@ -27,6 +28,10 @@ enum TileType{
 }
 
 var tileType = TileType.NONE
+
+
+func _on_Sprite_pressed():
+	pass # Replace with function body.
 "
 
 [node name="Tile" type="Node2D"]
@@ -34,3 +39,5 @@ script = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+script = ExtResource( 2 )
+[connection signal="pressed" from="Sprite" to="." method="_on_Sprite_pressed"]
