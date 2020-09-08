@@ -1,4 +1,4 @@
 extends "res://scripts/Tile.gd"
 
-func on_pressed():
-    print("One")
+func _ready():
+    tileValue = 1

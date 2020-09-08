@@ -40,4 +40,3 @@ script = SubResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
 script = ExtResource( 2 )
-[connection signal="pressed" from="Sprite" to="." method="_on_Sprite_pressed"]

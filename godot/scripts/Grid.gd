@@ -1,5 +1,7 @@
 extends Node2D
 
+signal tilePressed
+
 enum TileType {
 	ZERO,
 	ONE,
@@ -67,6 +69,10 @@ func create_grid():
 				max_row_length = tile_instance.position[0] + tile_size[0] / 2
 			if tile_instance.position[1] > max_column_length:
 				max_column_length = tile_instance.position[1] + tile_size[1] / 2
+			var error = tile_instance.connect("pressed", self, "on_Tile_pressed")
+			if error:
+				print("Failed to connect pressed signal, exiting...")
+				get_tree().quit()
 
 	var projectResolution = Vector2(
 		ProjectSettings.get_setting("display/window/size/width"),
@@ -114,7 +120,10 @@ func get_tile_scene(tileType):
 			var random_operator = OPERATORS_COUNT + randi() % NUMBERS_COUNT
 			return get_tile_scene(random_operator)
 		TileType.RANDOM:
-			var random_operator = randi() % TileType.size()
+			var random_operator = randi() % (NUMBERS_COUNT + OPERATORS_COUNT)
 			return get_tile_scene(random_operator)
 		_:
 			return Tile
+
+func on_Tile_pressed(value):
+	emit_signal("tilePressed", value)
