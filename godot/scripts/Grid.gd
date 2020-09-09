@@ -44,44 +44,60 @@ const DivisionTile = preload("res://scenes/operators/DivisionTile.tscn")
 
 export(Vector2) var positionOffset
 export(Array, Array, TileType) var puzzleGrid = []
+export(int) var gridHeight = 1
+export(int) var gridWidth = 1
 
 var grid = []
+var maxRowLength = 0
+var maxColumnLength = 0
 
 func _ready():
 	randomize()
 	create_grid()
 
 func create_grid():
-	var max_row_length = 0
-	var max_column_length = 0
+	if !puzzleGrid && gridHeight > 0 && gridWidth > 0:
+		for i in range(gridHeight):
+			puzzleGrid.append([])
+			for _j in range(gridWidth):
+				puzzleGrid[i].append(randi() % (NUMBERS_COUNT + OPERATORS_COUNT))
+	else:
+		print("Invalid grid size, exiting...")
+		get_tree().quit()
+
 	for row in puzzleGrid.size():
 		grid.append([])
 		for col in puzzleGrid[row].size():
-			var tile_instance = get_tile_scene(puzzleGrid[row][col]).instance()
-			add_child(tile_instance)
-			var tile_size = tile_instance.get_node("Sprite").texture.get_size()
-			tile_instance.position = Vector2(
-				tile_size[0] / 2 + col * tile_size[0],
-				tile_size[1] / 2 + row * tile_size[1]
-			)
-			grid[row].append(tile_instance)
-			if tile_instance.position[0] > max_row_length:
-				max_row_length = tile_instance.position[0] + tile_size[0] / 2
-			if tile_instance.position[1] > max_column_length:
-				max_column_length = tile_instance.position[1] + tile_size[1] / 2
-			var error = tile_instance.connect("pressed", self, "on_Tile_pressed")
-			if error:
-				print("Failed to connect pressed signal, exiting...")
-				get_tree().quit()
+			create_grid_tile(row, col)
 
 	var projectResolution = Vector2(
 		ProjectSettings.get_setting("display/window/size/width"),
 		ProjectSettings.get_setting("display/window/size/height")
 	)
 	position = positionOffset + Vector2(
-		projectResolution[0] / 2 - max_row_length / 2,
-		projectResolution[1] / 2 - max_column_length / 2
+		projectResolution[0] / 2 - maxRowLength / 2,
+		projectResolution[1] / 2 - maxColumnLength / 2
 	)
+
+func create_grid_tile(row, col):
+	var tile_instance = get_tile_scene(puzzleGrid[row][col]).instance()
+	add_child(tile_instance)
+	var tile_size = tile_instance.get_node("Sprite").texture.get_size()
+	tile_instance.position = Vector2(
+		tile_size[0] / 2 + col * tile_size[0],
+		tile_size[1] / 2 + row * tile_size[1]
+	)
+	if tile_instance.position[0] > maxRowLength:
+		maxRowLength = tile_instance.position[0] + tile_size[0] / 2
+	if tile_instance.position[1] > maxColumnLength:
+		maxColumnLength = tile_instance.position[1] + tile_size[1] / 2
+	grid[row].append(tile_instance)
+	var error = tile_instance.connect("pressed", self, "on_Tile_pressed")
+	if error:
+		print("Failed to connect pressed signal, exiting...")
+		get_tree().quit()
+	return tile_instance
+
 
 func get_tile_scene(tileType):
 	match tileType:

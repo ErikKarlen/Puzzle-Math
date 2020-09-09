@@ -11,7 +11,7 @@
 script = ExtResource( 3 )
 
 [node name="Grid" parent="." instance=ExtResource( 2 )]
-puzzleGrid = [ [ 16, 16, 16, 16, 16 ], [ 16, 16, 16, 16, 16 ], [ 16, 16, 16, 16, 16 ], [ 16, 16, 16, 16, 16 ], [ 16, 16, 16, 16, 16 ] ]
+gridWidth = 0
 
 [node name="Target" parent="." instance=ExtResource( 1 )]
 position = Vector2( 136, 8 )
