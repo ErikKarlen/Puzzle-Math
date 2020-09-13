@@ -1,6 +1,6 @@
 extends Node2D
 
-signal tilePressed
+signal tilePressed # TODO: change to tile_pressed
 
 enum TileType {
 	ZERO,
@@ -50,6 +50,7 @@ export(int) var gridWidth = 1
 var grid = []
 var maxRowLength = 0
 var maxColumnLength = 0
+var selectedTiles = []
 
 func _ready():
 	randomize()
@@ -141,5 +142,14 @@ func get_tile_scene(tileType):
 		_:
 			return Tile
 
-func on_Tile_pressed(value):
-	emit_signal("tilePressed", value)
+func on_Tile_pressed(tileValue, gridPosition):
+	var selectedTile = grid[gridPosition[0]][gridPosition[1]]
+	if len(selectedTiles) > 0:
+		var diff = selectedTiles[-1].get_grid_position() - gridPosition
+		if diff.length_squared() <= 1 && !(selectedTile in selectedTiles):
+			if !(selectedTile.tileValue is String && selectedTiles[-1].tileValue is String):
+				selectedTiles.append(selectedTile)
+				emit_signal("tilePressed", tileValue)
+	elif selectedTile.tileValue is int:
+		selectedTiles.append(selectedTile)
+		emit_signal("tilePressed", tileValue)

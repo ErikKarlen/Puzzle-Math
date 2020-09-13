@@ -11,4 +11,9 @@ func _ready():
 		get_tree().quit()
 
 func on_Sprite_pressed():
-	emit_signal("pressed", tileValue)
+	emit_signal("pressed", tileValue, get_grid_position())
+
+func get_grid_position():
+	var tileSize = $Sprite.texture.get_size()
+	var gridPosition = position / tileSize - Vector2(0.5, 0.5)
+	return Vector2(gridPosition[1], gridPosition[0])
