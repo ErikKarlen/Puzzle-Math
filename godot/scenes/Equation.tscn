@@ -6,4 +6,3 @@
 
 [node name="Label" parent="." instance=ExtResource( 1 )]
 grow_horizontal = 1
-text = "Equation: "

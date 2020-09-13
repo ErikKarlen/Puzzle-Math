@@ -11,10 +11,12 @@
 script = ExtResource( 3 )
 
 [node name="Grid" parent="." instance=ExtResource( 2 )]
-gridWidth = 0
+gridHeight = 5
+gridWidth = 5
 
 [node name="Target" parent="." instance=ExtResource( 1 )]
 position = Vector2( 136, 8 )
+targetNumber = 10
 
 [node name="LevelLabel" parent="." instance=ExtResource( 4 )]
 margin_left = 8.0
