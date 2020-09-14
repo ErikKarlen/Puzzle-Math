@@ -153,3 +153,6 @@ func on_Tile_pressed(tileValue, gridPosition):
 	elif selectedTile.tileValue is int:
 		selectedTiles.append(selectedTile)
 		emit_signal("tilePressed", tileValue)
+
+func reset_grid():
+	selectedTiles = []

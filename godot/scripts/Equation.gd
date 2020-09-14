@@ -9,9 +9,7 @@ onready var expressionString = ""
 
 func update_equation(tileValue):
 	if len(equation) >= maxEquationLength:
-		equation = ""
-		expressionString = ""
-		value = 0
+		reset_equation()
 	if tileValue is int:
 		expressionString += str(tileValue)
 	else:
@@ -24,3 +22,9 @@ func update_equation(tileValue):
 
 func get_value():
 	return value
+
+func reset_equation():
+	equation = ""
+	value = 0
+	expressionString = ""
+	$Label.text = ""

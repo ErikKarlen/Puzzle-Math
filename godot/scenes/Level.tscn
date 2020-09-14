@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://scenes/Target.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Grid.tscn" type="PackedScene" id=2]
@@ -6,6 +6,8 @@
 [ext_resource path="res://scenes/Label.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Equation.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scripts/Equation.gd" type="Script" id=6]
+[ext_resource path="res://scenes/ui/buttons/ResetButton.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/ui/buttons/ResetButton.gd" type="Script" id=8]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 3 )
@@ -28,4 +30,11 @@ grow_horizontal = 1
 [node name="Equation" parent="." instance=ExtResource( 5 )]
 position = Vector2( 8, 24 )
 script = ExtResource( 6 )
+
+[node name="ResetButton" parent="." instance=ExtResource( 7 )]
+margin_left = 8.0
+margin_top = 224.0
+margin_right = 49.0
+margin_bottom = 244.0
+script = ExtResource( 8 )
 [connection signal="tilePressed" from="Grid" to="." method="_on_Grid_tilePressed"]
