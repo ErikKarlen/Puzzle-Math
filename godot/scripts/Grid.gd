@@ -142,17 +142,29 @@ func get_tile_scene(tileType):
 		_:
 			return Tile
 
-func on_Tile_pressed(tileValue, gridPosition):
+func on_Tile_pressed(gridPosition):
 	var selectedTile = grid[gridPosition[0]][gridPosition[1]]
-	if len(selectedTiles) > 0:
+	if 0 < len(selectedTiles):
 		var diff = selectedTiles[-1].get_grid_position() - gridPosition
 		if diff.length_squared() <= 1 && !(selectedTile in selectedTiles):
 			if !(selectedTile.tileValue is String && selectedTiles[-1].tileValue is String):
-				selectedTiles.append(selectedTile)
-				emit_signal("tilePressed", tileValue)
+				select_tile(selectedTile)
 	elif selectedTile.tileValue is int:
-		selectedTiles.append(selectedTile)
-		emit_signal("tilePressed", tileValue)
+		select_tile(selectedTile)
 
-func reset_grid():
+func select_tile(selectedTile):
+	selectedTile.lock_tile()
+	selectedTiles.append(selectedTile)
+	emit_signal("tilePressed", selectedTile.tileValue)
+
+
+func reset_grid_selection():
 	selectedTiles = []
+	for row in grid:
+		for tile in row:
+			tile.unlock_tile()
+
+func lock_grid_selection():
+	for row in grid:
+		for tile in row:
+			tile.lock_tile()

@@ -28,3 +28,9 @@ func reset_equation():
 	value = 0
 	expressionString = ""
 	$Label.text = ""
+
+func lock_equation():
+	$Label.text += "\nTry Again!"
+
+func correct_equation():
+	$Label.text += "\nCorrect!"

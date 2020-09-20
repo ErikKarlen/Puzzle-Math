@@ -37,4 +37,9 @@ margin_top = 224.0
 margin_right = 49.0
 margin_bottom = 244.0
 script = ExtResource( 8 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 [connection signal="tilePressed" from="Grid" to="." method="_on_Grid_tilePressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
